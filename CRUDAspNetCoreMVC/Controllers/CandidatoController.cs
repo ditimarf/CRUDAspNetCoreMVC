@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace CRUDAspNetCoreMVC.Controllers
@@ -12,20 +11,31 @@ namespace CRUDAspNetCoreMVC.Controllers
             this.context = context;
         }
 
+        #region Listagem
         public IActionResult Index()
         {
             var candidatos = this.context.Candidatos.ToList();
             return View(candidatos);
         }
 
+        [Route("Candidatos/{filtro}")]
+        public IActionResult Index(string filtro)
+        {
+            var candidatos = this.context.Candidatos.Where(x => x.CH_Nome.Contains(filtro)).ToList();
+            return View(candidatos);
+        }
+        #endregion
+
         #region Novo
         [HttpGet]
+        [Route("Candidato/Novo")]
         public IActionResult Novo()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Candidato/Novo")]
         public IActionResult Novo(Models.Candidato candidato)
         {
             if (!ModelState.IsValid)
@@ -61,7 +71,7 @@ namespace CRUDAspNetCoreMVC.Controllers
             return RedirectToAction("Visualizar", new { id = candidato.CD_Candidato });
         }
         #endregion
-
+        [Route("Candidato/{id}")]
         public IActionResult Visualizar(int id)
         {
             var candidato = new BLL.CandidatoBLL(context).Retornar(id);

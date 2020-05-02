@@ -3,14 +3,16 @@ using CRUDAspNetCoreMVC.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRUDAspNetCoreMVC.Migrations
 {
     [DbContext(typeof(CRUDContext))]
-    partial class CRUDContextModelSnapshot : ModelSnapshot
+    [Migration("20200502190930_PrimeiraMigracao")]
+    partial class PrimeiraMigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

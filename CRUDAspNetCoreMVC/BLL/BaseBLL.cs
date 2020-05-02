@@ -31,6 +31,16 @@ namespace CRUDAspNetCoreMVC.BLL
             return item;
         }
 
+        public List<T> Inserir(List<T> itens)
+        {
+            var _return = new List<T>();
+
+            foreach (var i in itens)
+                _return.Add(Inserir(i));
+
+            return _return;
+        }
+
         public T Editar(T item)
         {
             context.Entry(item).State = EntityState.Modified;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CRUDAspNetCoreMVC.Models
 {
@@ -16,6 +12,11 @@ namespace CRUDAspNetCoreMVC.Models
         [Display(Name = "Nome")]
         public string CH_Nome { get; set; }
 
+        [Required(ErrorMessage = "O campo Telefone é obrigatorio")]
+        [Display(Name = "Telefone")]
+        [DataTypeAttribute(DataType.PhoneNumber)]
+        public string CH_Telefone { get; set; }
+
         [Required(ErrorMessage = "O campo Email é obrigatorio")]
         [Display(Name = "Email")]
         [DataTypeAttribute(DataType.EmailAddress)]
@@ -28,5 +29,7 @@ namespace CRUDAspNetCoreMVC.Models
         [Required(ErrorMessage = "O campo ESTADO é obrigatorio")]
         [Display(Name = "Estado")]
         public string CH_Estado { get; set; }
+
+        //public virtual List<Avaliacao> Avaliacoes{ get; set; }
     }
 }

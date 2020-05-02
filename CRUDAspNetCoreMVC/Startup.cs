@@ -52,7 +52,7 @@ namespace CRUDAspNetCoreMVC
                     context.Database.Migrate();
                 }
             }
-            catch { }
+            catch(Exception ex) { }
 
             if (env.IsDevelopment())
             {

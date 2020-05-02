@@ -19,5 +19,8 @@ namespace CRUDAspNetCoreMVC.DAL
         }
 
         public DbSet<Models.Candidato> Candidatos { get; set; }
+        public DbSet<Models.Avaliacao> Avaliacoes { get; set; }
+        public DbSet<Models.Pergunta> Perguntas { get; set; }
+        public DbSet<Models.Resposta> Respostas { get; set; }
     }
 }
