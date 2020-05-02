@@ -1,0 +1,43 @@
+﻿@model CRUDAspNetCoreMVC.Models.Candidato
+
+@{
+    ViewData["Title"] = "Visualizar Candidato";
+}
+
+<h2>Visualizar</h2>
+
+<div>
+    <h4>Candidato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Cidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Cidade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Estado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Estado)
+        </dd>
+    </dl>
+</div>
+<hr/>
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-warning">Voltar para listagem</a>
+    <a asp-action="Editar" asp-route-id="@Model.CD_Candidato" class="btn btn-info">Editar candidato</a>
+</div>

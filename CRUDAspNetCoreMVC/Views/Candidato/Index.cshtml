@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CRUDAspNetCoreMVC.Models.Candidato>
+@{
+    ViewData["Title"] = "Candidatos";
+}
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(Model => Model.First().CD_Candidato)</th>
+        <th style="width: 35%"> @Html.DisplayNameFor(Model => Model.First().CH_Nome)</th>
+        <th>@Html.DisplayNameFor(Model => Model.First().CH_Email)</th>
+        <th>@Html.DisplayNameFor(Model => Model.First().CH_Cidade)</th>
+        <th>@Html.DisplayNameFor(Model => Model.First().CH_Estado)</th>
+        <th style="width: 200px">
+            <a class="glyphicon glyphicon-plus btn btn-success largura-total" asp-action="Novo"> Novo</a>
+        </th>
+    </tr>
+    @foreach (var candidato in Model)
+    {
+        <tr>
+                <td>@candidato.CD_Candidato</td>
+                <td>@candidato.CH_Nome</td>
+                <td>@candidato.CH_Email</td>
+                <td>@candidato.CH_Cidade</td>
+                <td>@candidato.CH_Estado</td>
+            <td>
+                <div class="btn-group" style="width: 100%;">
+                    <a class="glyphicon glyphicon-search btn btn-info largura-terco" asp-action="Visualizar" asp-route-id="@candidato.CD_Candidato"></a>
+                    <a class="glyphicon glyphicon-pencil btn btn-warning largura-terco" asp-action="Editar" asp-route-id="@candidato.CD_Candidato"></a>
+                    <a class="glyphicon glyphicon-trash btn btn-danger largura-terco" asp-action="Remover" asp-route-id="@candidato.CD_Candidato"></a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,48 @@
+﻿@model CRUDAspNetCoreMVC.Models.Candidato
+
+@{
+    ViewData["Title"] = "Novo Candidato";
+}
+
+<h2>Novo</h2>
+<h4>Candidato</h4>
+<hr />
+<div>
+    <form asp-action="Novo">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div>
+                <div class="col-md-6">
+                    <label asp-for="CH_Nome" class="control-label"></label>
+                    <input asp-for="CH_Nome" class="form-control" />
+                    <span asp-validation-for="CH_Nome" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="CH_Email" class="control-label"></label>
+                    <input asp-for="CH_Email" class="form-control" />
+                    <span asp-validation-for="CH_Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <div class="col-md-6">
+                    <label asp-for="CH_Cidade" class="control-label"></label>
+                    <input asp-for="CH_Cidade" class="form-control" />
+                    <span asp-validation-for="CH_Cidade" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="CH_Estado" class="control-label"></label>
+                    <input asp-for="CH_Estado" class="form-control"/>
+                    <span asp-validation-for="CH_Estado" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <div class="form-group">
+            <button asp-action="Index" class="btn btn-warning">Voltar para listagem</button>
+            <input type="submit" value="Salvar candidato" class="btn btn-success" />
+        </div>
+    </form>
+</div>
