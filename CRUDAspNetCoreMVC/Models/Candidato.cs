@@ -18,6 +18,7 @@ namespace CRUDAspNetCoreMVC.Models
 
         [Required(ErrorMessage = "O campo Email é obrigatorio")]
         [Display(Name = "Email")]
+        [DataTypeAttribute(DataType.EmailAddress)]
         public string CH_Email { get; set; }
 
         [Required(ErrorMessage = "O campo CIDADE é obrigatorio")]

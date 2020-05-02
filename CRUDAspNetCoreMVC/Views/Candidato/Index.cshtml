@@ -17,11 +17,11 @@
     @foreach (var candidato in Model)
     {
         <tr>
-                <td>@candidato.CD_Candidato</td>
-                <td>@candidato.CH_Nome</td>
-                <td>@candidato.CH_Email</td>
-                <td>@candidato.CH_Cidade</td>
-                <td>@candidato.CH_Estado</td>
+            <td>@candidato.CD_Candidato</td>
+            <td>@candidato.CH_Nome</td>
+            <td>@candidato.CH_Email</td>
+            <td>@candidato.CH_Cidade</td>
+            <td>@candidato.CH_Estado</td>
             <td>
                 <div class="btn-group" style="width: 100%;">
                     <a class="glyphicon glyphicon-search btn btn-info largura-terco" asp-action="Visualizar" asp-route-id="@candidato.CD_Candidato"></a>
@@ -32,4 +32,3 @@
         </tr>
     }
 </table>
-

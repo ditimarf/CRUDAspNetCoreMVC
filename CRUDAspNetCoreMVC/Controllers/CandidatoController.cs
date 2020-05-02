@@ -35,7 +35,7 @@ namespace CRUDAspNetCoreMVC.Controllers
 
             new BLL.CandidatoBLL(this.context).Inserir(candidato);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Visualizar", new { id = candidato.CD_Candidato });
         }
         #endregion
 
@@ -67,5 +67,23 @@ namespace CRUDAspNetCoreMVC.Controllers
             var candidato = new BLL.CandidatoBLL(context).Retornar(id);
             return View(candidato);
         }
+
+        #region Remover
+        [HttpGet]
+        public IActionResult Remover(int id)
+        {
+            var candidato = new BLL.CandidatoBLL(this.context).Retornar(id);
+            return View(candidato);
+        }
+
+        [HttpPost]
+        public IActionResult Remover(int id, Models.Candidato candidato)
+        {
+            candidato.CD_Candidato = id;
+            new BLL.CandidatoBLL(this.context).Remover(candidato);
+
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }

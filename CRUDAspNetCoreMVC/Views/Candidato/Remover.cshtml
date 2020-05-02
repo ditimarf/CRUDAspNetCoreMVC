@@ -1,0 +1,43 @@
+﻿@model CRUDAspNetCoreMVC.Models.Candidato
+
+@{
+    ViewData["Title"] = "Remover Candidato";
+}
+
+<h2>Remover</h2>
+
+<div>
+    <h4>Candidato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Cidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Cidade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CH_Estado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CH_Estado)
+        </dd>
+    </dl>
+</div>
+<hr />
+<form class="form-group" asp-action="Remover" asp-route-id="@Model.CD_Candidato" method="post">
+    <a asp-action="Index" class="btn btn-warning">Voltar para listagem</a>
+    <input type="submit" class="btn btn-danger" value="Remover candidato">
+</form>
