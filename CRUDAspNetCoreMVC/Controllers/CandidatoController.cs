@@ -96,6 +96,8 @@ namespace CRUDAspNetCoreMVC.Controllers
         public IActionResult Remover(int id, Models.Candidato candidato)
         {
             candidato.CD_Candidato = id;
+
+            new BLL.AvaliacaoBLL(this.contexto).RetornarAvaliacoesPorCodigoCandidato(id);
             new BLL.CandidatoBLL(this.contexto).Remover(candidato);
 
             return RedirectToAction("Index");

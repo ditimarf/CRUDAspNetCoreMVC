@@ -12,5 +12,12 @@ namespace CRUDAspNetCoreMVC.BLL
         {
             return RetornarLista(x => x.CD_Candidato == codigoCandidato);
         }
+
+        public void RemoverAvaliacoesPorCodigoCandidato(int codigoCandidato)
+        {
+            var avalicoes = RetornarLista(x => x.CD_Candidato == codigoCandidato);
+            foreach (var avaliacao in avalicoes)
+                Remover(avaliacao);
+        }
     }
 }

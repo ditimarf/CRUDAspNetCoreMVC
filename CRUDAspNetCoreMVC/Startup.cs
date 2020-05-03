@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CRUDAspNetCoreMVC
 {
@@ -44,15 +40,15 @@ namespace CRUDAspNetCoreMVC
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Startup.app = app;
-            try
-            {
-                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-                {
-                    var context = serviceScope.ServiceProvider.GetRequiredService<DAL.CRUDContext>();
-                    context.Database.Migrate();
-                }
-            }
-            catch(Exception ex) { }
+            //try
+            //{
+            //    using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //    {
+            //        var context = serviceScope.ServiceProvider.GetRequiredService<DAL.CRUDContext>();
+            //        context.Database.Migrate();
+            //    }
+            //}
+            //catch(Exception ex) { }
 
             if (env.IsDevelopment())
             {

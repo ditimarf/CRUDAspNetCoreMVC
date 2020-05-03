@@ -8,7 +8,7 @@ namespace CRUDAspNetCoreMVC.BLL
 {
     public class BaseBLL<T> where T : class
     {
-        private DAL.CRUDContext context;
+        protected DAL.CRUDContext context;
         public BaseBLL(DAL.CRUDContext context)
         {
             this.context = context;
