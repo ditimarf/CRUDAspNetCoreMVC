@@ -1,27 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CRUDAspNetCoreMVC.Controllers
 {
     public class CandidatoController : Controller
     {
-        private DAL.CRUDContext context;
+        private DAL.CRUDContext contexto;
         public CandidatoController(DAL.CRUDContext context)
         {
-            this.context = context;
+            this.contexto = context;
         }
 
         #region Listagem
         public IActionResult Index()
         {
-            var candidatos = this.context.Candidatos.ToList();
+            var candidatos = this.contexto.Candidatos.ToList();
             return View(candidatos);
         }
 
         [Route("Candidatos/{filtro}")]
         public IActionResult Index(string filtro)
         {
-            var candidatos = this.context.Candidatos.Where(x => x.CH_Nome.Contains(filtro)).ToList();
+            var candidatos = this.contexto.Candidatos.Where(x => x.CH_Nome.Contains(filtro)).ToList();
             return View(candidatos);
         }
         #endregion
@@ -43,7 +44,7 @@ namespace CRUDAspNetCoreMVC.Controllers
                 return View(candidato);
             }
 
-            new BLL.CandidatoBLL(this.context).Inserir(candidato);
+            new BLL.CandidatoBLL(this.contexto).Inserir(candidato);
 
             return RedirectToAction("Visualizar", new { id = candidato.CD_Candidato });
         }
@@ -53,7 +54,7 @@ namespace CRUDAspNetCoreMVC.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            var candidato = new BLL.CandidatoBLL(this.context).Retornar(id);
+            var candidato = new BLL.CandidatoBLL(this.contexto).Retornar(id);
             return View(candidato);
         }
 
@@ -66,23 +67,28 @@ namespace CRUDAspNetCoreMVC.Controllers
             }
 
             candidato.CD_Candidato = id;
-            candidato = new BLL.CandidatoBLL(this.context).Editar(candidato);
+            candidato = new BLL.CandidatoBLL(this.contexto).Editar(candidato);
 
             return RedirectToAction("Visualizar", new { id = candidato.CD_Candidato });
         }
         #endregion
+
+        #region Visualizar
         [Route("Candidato/{id}")]
         public IActionResult Visualizar(int id)
         {
-            var candidato = new BLL.CandidatoBLL(context).Retornar(id);
-            return View(candidato);
-        }
+            var model = new ModelVisualizacaoCandidato();
+            model.Candidato = new BLL.CandidatoBLL(contexto).Retornar(id);
+            model.Avaliacoes = new BLL.AvaliacaoBLL(contexto).RetornarAvaliacoesPorCodigoCandidato(id);
+            return View(model);
+        } 
+        #endregion
 
         #region Remover
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            var candidato = new BLL.CandidatoBLL(this.context).Retornar(id);
+            var candidato = new BLL.CandidatoBLL(this.contexto).Retornar(id);
             return View(candidato);
         }
 
@@ -90,10 +96,16 @@ namespace CRUDAspNetCoreMVC.Controllers
         public IActionResult Remover(int id, Models.Candidato candidato)
         {
             candidato.CD_Candidato = id;
-            new BLL.CandidatoBLL(this.context).Remover(candidato);
+            new BLL.CandidatoBLL(this.contexto).Remover(candidato);
 
             return RedirectToAction("Index");
         }
         #endregion
     }
+}
+
+public class ModelVisualizacaoCandidato
+{
+    public CRUDAspNetCoreMVC.Models.Candidato Candidato { get; set; }
+    public List<CRUDAspNetCoreMVC.Models.Avaliacao> Avaliacoes{ get; set; }
 }

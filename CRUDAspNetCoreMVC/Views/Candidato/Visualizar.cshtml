@@ -1,4 +1,4 @@
-﻿@model CRUDAspNetCoreMVC.Models.Candidato
+﻿@model ModelVisualizacaoCandidato
 
 @{
     ViewData["Title"] = "Visualizar Candidato";
@@ -13,34 +13,34 @@
     <div class="row">
         <dl class="col-md-5">
             <dt>
-                @Html.DisplayNameFor(model => model.CH_Nome)
+                @Html.DisplayNameFor(model => model.Candidato.CH_Nome)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CH_Nome)
+                @Html.DisplayFor(model => model.Candidato.CH_Nome)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.CH_Telefone)
+                @Html.DisplayNameFor(model => model.Candidato.CH_Telefone)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CH_Telefone)
+                @Html.DisplayFor(model => model.Candidato.CH_Telefone)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.CH_Email)
+                @Html.DisplayNameFor(model => model.Candidato.CH_Email)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CH_Email)
+                @Html.DisplayFor(model => model.Candidato.CH_Email)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.CH_Cidade)
+                @Html.DisplayNameFor(model => model.Candidato.CH_Cidade)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CH_Cidade)
+                @Html.DisplayFor(model => model.Candidato.CH_Cidade)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.CH_Estado)
+                @Html.DisplayNameFor(model => model.Candidato.CH_Estado)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CH_Estado)
+                @Html.DisplayFor(model => model.Candidato.CH_Estado)
             </dd>
         </dl>
 
@@ -49,17 +49,22 @@
                 <tr>
                     <th>Data das avaliações</th>
                     <th class="largura-quinto">
-                        <a asp-controller="Avaliacao" asp-action="NovaAvaliacao" asp-route-id="@Model?.CD_Candidato" class="btn btn-success btn-block  glyphicon glyphicon-plus"> Adicionar Teste</a>
+                        <a asp-controller="Avaliacao" asp-action="NovaAvaliacao" asp-route-id="@Model?.Candidato.CD_Candidato" class="btn btn-success btn-block  glyphicon glyphicon-plus"> Adicionar Teste</a>
                     </th>
                 </tr>
-                <tr>
-                    <td>@DateTime.Now.ToShortDateString()</td>
-                    <td class="btn-group largura-total">
-                        <button class="btn btn-info largura-terco glyphicon glyphicon-search"/>
-                        <button class="btn btn-warning largura-terco  glyphicon glyphicon-pencil"/>
-                        <button class="btn btn-danger largura-terco glyphicon glyphicon-trash"/>
-                    </td>
-                </tr>
+                @{
+                    foreach (var a in Model.Avaliacoes)
+                    {
+                        <tr>
+                            <td> @a.DT_Avaliacao.ToShortDateString() - @a.DT_Avaliacao.ToShortTimeString()</td>
+                            <td class="btn-group largura-total">
+                                <button class="btn btn-info largura-terco glyphicon glyphicon-search" />
+                                <button class="btn btn-warning largura-terco  glyphicon glyphicon-pencil" />
+                                <button class="btn btn-danger largura-terco glyphicon glyphicon-trash" />
+                            </td>
+                        </tr>
+                    }
+                }
             </table>
         </div>
     </div>
@@ -67,5 +72,5 @@
 <hr />
 <div class="form-group">
     <a asp-action="Index" class="btn btn-warning">Voltar para listagem</a>
-    <a asp-action="Editar" asp-route-id="@Model?.CD_Candidato" class="btn btn-info">Editar candidato</a>
+    <a asp-action="Editar" asp-route-id="@Model?.Candidato.CD_Candidato" class="btn btn-info">Editar candidato</a>
 </div>

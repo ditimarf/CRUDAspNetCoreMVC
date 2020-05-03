@@ -4,14 +4,16 @@ using CRUDAspNetCoreMVC.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRUDAspNetCoreMVC.Migrations
 {
     [DbContext(typeof(CRUDContext))]
-    partial class CRUDContextModelSnapshot : ModelSnapshot
+    [Migration("20200503125528_AdicaoDoConhecimentoNaoListado")]
+    partial class AdicaoDoConhecimentoNaoListado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,6 @@ namespace CRUDAspNetCoreMVC.Migrations
                     b.Property<int>("CD_Candidato");
 
                     b.Property<string>("CH_ConhecimentosNaoListados");
-
-                    b.Property<DateTime>("DT_Avaliacao");
 
                     b.Property<bool>("VF_DisponivelAcimaDe8HorasPorDia");
 

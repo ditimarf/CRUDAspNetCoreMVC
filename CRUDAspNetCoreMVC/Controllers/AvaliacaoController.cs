@@ -1,5 +1,6 @@
 ﻿using CRUDAspNetCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace CRUDAspNetCoreMVC.Controllers
                 return View("Avaliacao", model);
             }
 
+            model.Avaliacao.DT_Avaliacao = DateTime.Now;
             var avaliacao = new BLL.AvaliacaoBLL(contexto).Inserir(model.Avaliacao);
             var listaDeResposta = model.listaGrupoPergunta.Select(x =>
                 new Resposta
@@ -48,7 +50,7 @@ namespace CRUDAspNetCoreMVC.Controllers
                 }).ToList();
             new BLL.RespostaBLL(contexto).Inserir(listaDeResposta);
 
-            return RedirectToAction("Index", "Candidato");
+            return RedirectToAction("Visualizar", "Candidato", new { id = avaliacao.CD_Candidato});
         }
     }
 }

@@ -4,7 +4,7 @@
 }
 <div>
 
-    <div class="jumbotron" style="background-color: #fc6969">
+    <div class="jumbotron" style="background-color: #f8d284">
         <p>OBSERVAÇÃO: Na seleção de conhecimento, selecione</p>
         <p>0 para NÃO CONHECE e 5 para CONHECIMENTO SÊNIOR</p>
     </div>
@@ -94,7 +94,25 @@
                 <span asp-validation-for="listaGrupoPergunta[i].IN_Conhecimento" class="text-danger"></span>
             </div>
         }
+
+        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+            <h3>@Html.DisplayNameFor(m => Model.Avaliacao.VR_PretencaoSalarioPorHora)</h3>
+            <div class="largura-total " style="display:inline-flex;">
+                <p style="margin: 6px 15px 0px 15px">R$</p>
+                <input type="number" class="form-control largura-quinto" asp-for="Avaliacao.VR_PretencaoSalarioPorHora" />
+            </div>
+
+            <span asp-validation-for="Avaliacao.VR_PretencaoSalarioPorHora" class="text-danger"></span>
+        </div>
+
+        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+            <h3> Informe algum conhecimento seu que não foi listado nas opções acima</h3>
+            <input type="text" class="form-control largura-metade" asp-for="Avaliacao.CH_ConhecimentosNaoListados" />
+            <span asp-validation-for="Avaliacao.CH_ConhecimentosNaoListados" class="text-danger"></span>
+        </div>
+
         <br />
-        <input type="submit" value="Envia CheckBox" />
+        <a class="btn btn-warning" asp-controller="Candidato" asp-action="Visualizar" asp-route-id="@Model.Avaliacao.CD_Candidato">Voltar para candidato</a>
+        <input class="btn btn-success" type="submit" value="Salvar avaliação" />
     }
 </div>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,14 +32,22 @@ namespace CRUDAspNetCoreMVC.Models
         [Display(Name = "Horário comercial (de 08:00 as 18:00)")]
         public bool VF_TrabalharHorarioComercial{ get; set; }
 
+        [Required(ErrorMessage ="Informe sua pretenção salarial")]
         [Display(Name = "Pretenção salarial por hora")]
-        public decimal VR_PretencaoSalarioPorHora { get; set; }
+        public decimal? VR_PretencaoSalarioPorHora { get; set; }
+
+        [Display(Name ="Conhecimentos extras")]
+        public string CH_ConhecimentosNaoListados { get; set; }
+
+        [Display(Name ="Data da avaliação")]
+        public DateTime DT_Avaliacao { get; set; }
 
         [Display(Name = "Código do candidato")]
         public int CD_Candidato { get; set; }
 
         [ForeignKey("CD_Candidato")]
         public virtual Candidato Candidato { get; set; }
+
         //public virtual List<Resposta> Respostas { get; set; }
 
         //#region Conhecimentos

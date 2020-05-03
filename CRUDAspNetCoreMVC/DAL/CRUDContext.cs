@@ -7,7 +7,7 @@ namespace CRUDAspNetCoreMVC.DAL
     {
         public CRUDContext(DbContextOptions<CRUDContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public static CRUDContext RetornarContextoDeConexao()
