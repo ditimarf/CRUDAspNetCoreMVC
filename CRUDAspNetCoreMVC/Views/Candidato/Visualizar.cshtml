@@ -58,9 +58,9 @@
                         <tr>
                             <td> @a.DT_Avaliacao.ToShortDateString() - @a.DT_Avaliacao.ToShortTimeString()</td>
                             <td class="btn-group largura-total">
-                                <button class="btn btn-info largura-terco glyphicon glyphicon-search" />
-                                <button class="btn btn-warning largura-terco  glyphicon glyphicon-pencil" />
-                                <button class="btn btn-danger largura-terco glyphicon glyphicon-trash" />
+                                <a asp-controller="Avaliacao" asp-action="Visualizar" asp-route-id="@a.CD_Avaliacao" class="btn btn-info largura-terco glyphicon glyphicon-search"/>
+                                <a asp-controller="Avaliacao" asp-action="Editar" asp-route-id="@a.CD_Avaliacao" class="btn btn-warning largura-terco  glyphicon glyphicon-pencil" />
+                                <a asp-controller="Avaliacao" asp-action="Remover" asp-route-id="@a.CD_Avaliacao" class="btn btn-danger largura-terco glyphicon glyphicon-trash" />
                             </td>
                         </tr>
                     }

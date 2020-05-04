@@ -8,26 +8,26 @@ namespace CRUDAspNetCoreMVC.BLL
 {
     public class BaseBLL<T> where T : class
     {
-        protected DAL.CRUDContext context;
+        protected DAL.CRUDContext contexto;
         public BaseBLL(DAL.CRUDContext context)
         {
-            this.context = context;
+            this.contexto = context;
         }
 
         public List<T> RetornarLista()
         {
-            return context.Set<T>().ToList();
+            return contexto.Set<T>().ToList();
         }
 
         public T Retornar(int codigo)
         {
-            return context.Set<T>().Find(codigo);
+            return contexto.Set<T>().Find(codigo);
         }
-        
+
         public T Inserir(T item)
         {
-            context.Set<T>().Add(item);
-            context.SaveChanges();
+            contexto.Set<T>().Add(item);
+            contexto.SaveChanges();
             return item;
         }
 
@@ -43,17 +43,27 @@ namespace CRUDAspNetCoreMVC.BLL
 
         public T Editar(T item)
         {
-            context.Entry(item).State = EntityState.Modified;
-            context.SaveChanges();
+            contexto.Entry(item).State = EntityState.Modified;
+            contexto.SaveChanges();
             return item;
+        }
+
+        public List<T> Editar(List<T> itens)
+        {
+            var _return = new List<T>();
+
+            foreach (var i in itens)
+                _return.Add(Editar(i));
+
+            return _return;
         }
 
         public bool Remover(T item)
         {
             try
             {
-                context.Entry(item).State = EntityState.Deleted;
-                context.SaveChanges();
+                contexto.Entry(item).State = EntityState.Deleted;
+                contexto.SaveChanges();
                 return true;
             }
             catch { }
@@ -61,15 +71,21 @@ namespace CRUDAspNetCoreMVC.BLL
             return false;
         }
 
+        public void Remover(List<T> itens)
+        {
+            foreach (var i in itens)
+                Remover(i);
+        }
+
         #region Protected
         protected List<T> RetornarLista(Expression<Func<T, bool>> expression)
         {
-            return context.Set<T>().Where(expression).ToList();
+            return contexto.Set<T>().Where(expression).ToList();
         }
 
         protected T Retornar(Expression<Func<T, bool>> expression)
         {
-            return context.Set<T>().FirstOrDefault(expression);
+            return contexto.Set<T>().FirstOrDefault(expression);
         }
 
         #endregion

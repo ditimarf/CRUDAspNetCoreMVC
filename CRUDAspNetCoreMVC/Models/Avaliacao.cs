@@ -33,6 +33,7 @@ namespace CRUDAspNetCoreMVC.Models
         public bool VF_TrabalharHorarioComercial{ get; set; }
 
         [Required(ErrorMessage ="Informe sua pretenção salarial")]
+        [DataType(DataType.Currency, ErrorMessage ="Valor inválido para pretenção salarial")]
         [Display(Name = "Pretenção salarial por hora")]
         public decimal? VR_PretencaoSalarioPorHora { get; set; }
 

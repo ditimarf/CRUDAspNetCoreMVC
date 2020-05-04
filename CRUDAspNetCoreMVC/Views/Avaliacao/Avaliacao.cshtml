@@ -1,118 +1,155 @@
-﻿@model ModelNovaAvaliacao
+﻿@model ModelAvaliacao
 @{
-    ViewData["Title"] = "Nova Avaliação";
-}
-<div>
-
-    <div class="jumbotron" style="background-color: #f8d284">
-        <p>OBSERVAÇÃO: Na seleção de conhecimento, selecione</p>
-        <p>0 para NÃO CONHECE e 5 para CONHECIMENTO SÊNIOR</p>
-    </div>
-
-    @using (Html.BeginForm("Salvar", "Avaliacao", FormMethod.Post))
+    var actionChamada = "Salvar";
+    var tipoDeOperacao = "Nova";
+    switch (Model.Operacao)
     {
-        @Html.HiddenFor(m => Model.Avaliacao.CD_Candidato)
+        case CRUDAspNetCoreMVC.Enums.EnumCRUD.DELETE:
+            actionChamada = "Remover";
+            tipoDeOperacao = "Remover";
+            break;
 
-        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
-            <h3>Disponibilidade para trabalhar</h3>
-            <div class="largura-total bloc" style="display:block">
-                <dl>
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelAte4HorasPorDia)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelAte4HorasPorDia)
-                    </dt>
+        case CRUDAspNetCoreMVC.Enums.EnumCRUD.READ:
+            tipoDeOperacao = "Visualizar";
+            break;
 
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelDe4A6HorasPorDia)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelDe4A6HorasPorDia)
-                    </dt>
+        case CRUDAspNetCoreMVC.Enums.EnumCRUD.UPDATE:
+            actionChamada = "Editar";
+            tipoDeOperacao = "Editar";
+            break;
+    }
+    var ativaEnabledCampos = (Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.CREATE || Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.UPDATE);
 
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelDe6A8HorasPorDia)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelDe6A8HorasPorDia)
-                    </dt>
-
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelAcimaDe8HorasPorDia)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelAcimaDe8HorasPorDia)
-                    </dt>
-
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharHorarioComercial)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharHorarioComercial)
-                    </dt>
-                </dl>
-            </div>
+    ViewData["Title"] = $"{tipoDeOperacao} Avaliação";
+}
+<h1>@tipoDeOperacao Avaliação</h1>
+<div>
+    @if (Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.CREATE)
+    {
+        <div class="jumbotron" style="background-color: #f8d284">
+            <p>OBSERVAÇÃO: Na seleção de conhecimento, selecione</p>
+            <p>0 para NÃO CONHECE e 5 para CONHECIMENTO SÊNIOR</p>
         </div>
+    }
 
-        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
-            <h3>Melhor horário para trabalhar</h3>
-            <div class="largura-total bloc" style="display:block">
-                <dl>
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharDeManha)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharDeManha)
-                    </dt>
+    @using (Html.BeginForm(actionChamada, "Avaliacao", FormMethod.Post))
+    {
+        <div style="pointer-events: @(ativaEnabledCampos ? "" : "none")">
+            @Html.HiddenFor(m => Model.Operacao)
+            @Html.HiddenFor(m => Model.Avaliacao.CD_Avaliacao)
+            @Html.HiddenFor(m => Model.Avaliacao.CD_Candidato)
+            @Html.HiddenFor(m => Model.Avaliacao.DT_Avaliacao)
 
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharATarde)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharATarde)
-                    </dt>
-
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharANoite)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharANoite)
-                    </dt>
-
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharDeMadrugada)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharDeMadrugada)
-                    </dt>
-
-                    <dt>
-                        @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelApenasFinaisDeSemana)
-                        @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelApenasFinaisDeSemana)
-                    </dt>
-                </dl>
-            </div>
-        </div>
-
-
-        @for (int i = 0; i < Model.listaGrupoPergunta.Count; i++)
-        {
             <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
-                @Html.HiddenFor(m => Model.listaGrupoPergunta[i].Pergunta.CD_Pergunta)
-                @Html.HiddenFor(m => Model.listaGrupoPergunta[i].Pergunta.CH_Descricao)
-                <h3>@Model.listaGrupoPergunta[i].Pergunta.CH_Descricao</h3>
-                <div class="largura-total " style="display:inline-flex;">
-                    <p style="margin: 6px 15px 0px 15px">Selecione seu nível de conhecimento</p>
-                    @Html.DropDownListFor(m => Model.listaGrupoPergunta[i].IN_Conhecimento,
-                          new SelectList(new List<int> (){ 0, 1, 2, 3, 4, 5}),
-                          "-",
-                          new { @class = "form-control largura-quinto" })
+                <h3>Disponibilidade para trabalhar</h3>
+                <div class="largura-total bloc" style="display:block">
+                    <dl>
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelAte4HorasPorDia)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelAte4HorasPorDia)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelDe4A6HorasPorDia)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelDe4A6HorasPorDia)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelDe6A8HorasPorDia)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelDe6A8HorasPorDia)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelAcimaDe8HorasPorDia)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelAcimaDe8HorasPorDia)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharHorarioComercial)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharHorarioComercial)
+                        </dt>
+                    </dl>
                 </div>
-                <span asp-validation-for="listaGrupoPergunta[i].IN_Conhecimento" class="text-danger"></span>
-            </div>
-        }
-
-        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
-            <h3>@Html.DisplayNameFor(m => Model.Avaliacao.VR_PretencaoSalarioPorHora)</h3>
-            <div class="largura-total " style="display:inline-flex;">
-                <p style="margin: 6px 15px 0px 15px">R$</p>
-                <input type="number" class="form-control largura-quinto" asp-for="Avaliacao.VR_PretencaoSalarioPorHora" />
             </div>
 
-            <span asp-validation-for="Avaliacao.VR_PretencaoSalarioPorHora" class="text-danger"></span>
-        </div>
+            <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+                <h3>Melhor horário para trabalhar</h3>
+                <div class="largura-total bloc" style="display:block">
+                    <dl>
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharDeManha)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharDeManha)
+                        </dt>
 
-        <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
-            <h3> Informe algum conhecimento seu que não foi listado nas opções acima</h3>
-            <input type="text" class="form-control largura-metade" asp-for="Avaliacao.CH_ConhecimentosNaoListados" />
-            <span asp-validation-for="Avaliacao.CH_ConhecimentosNaoListados" class="text-danger"></span>
-        </div>
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharATarde)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharATarde)
+                        </dt>
 
-        <br />
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharANoite)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharANoite)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_TrabalharDeMadrugada)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_TrabalharDeMadrugada)
+                        </dt>
+
+                        <dt>
+                            @Html.CheckBoxFor(m => Model.Avaliacao.VF_DisponivelApenasFinaisDeSemana)
+                            @Html.DisplayNameFor(m => Model.Avaliacao.VF_DisponivelApenasFinaisDeSemana)
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+
+
+            @for (int i = 0; i < Model.listaGrupoPergunta.Count; i++)
+            {
+                <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+                    @Html.HiddenFor(m => Model.listaGrupoPergunta[i].Pergunta.CD_Pergunta)
+                    @Html.HiddenFor(m => Model.listaGrupoPergunta[i].Pergunta.CH_Descricao)
+                    <h3>@Model.listaGrupoPergunta[i].Pergunta.CH_Descricao</h3>
+                    <div class="largura-total " style="display:inline-flex;">
+                        <p style="margin: 6px 15px 0px 15px">Selecione seu nível de conhecimento</p>
+                        @Html.DropDownListFor(m => Model.listaGrupoPergunta[i].IN_Conhecimento,
+                              new SelectList(new List<int> (){ 0, 1, 2, 3, 4, 5}),
+                              "-",
+                              new { @class = "form-control largura-quinto" })
+                    </div>
+                    <span asp-validation-for="listaGrupoPergunta[i].IN_Conhecimento" class="text-danger"></span>
+                </div>
+            }
+
+            <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+                <h3>@Html.DisplayNameFor(m => Model.Avaliacao.VR_PretencaoSalarioPorHora)</h3>
+                <div class="largura-total " style="display:inline-flex;">
+                    <p style="margin: 6px 15px 0px 15px">R$</p>
+                    @Html.TextBoxFor(m => Model.Avaliacao.VR_PretencaoSalarioPorHora, "{0:N}", new { @class = "from-control" })
+                </div>
+                <span asp-validation-for="Avaliacao.VR_PretencaoSalarioPorHora" class="text-danger"></span>
+            </div>
+
+            <div style="background-color:#eeeeee; padding:10px 15px; margin:10px">
+                <h3> Informe algum conhecimento seu que não foi listado nas opções acima</h3>
+                <input type="text" class="form-control largura-metade" asp-for="Avaliacao.CH_ConhecimentosNaoListados" />
+                <span asp-validation-for="Avaliacao.CH_ConhecimentosNaoListados" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
         <a class="btn btn-warning" asp-controller="Candidato" asp-action="Visualizar" asp-route-id="@Model.Avaliacao.CD_Candidato">Voltar para candidato</a>
-        <input class="btn btn-success" type="submit" value="Salvar avaliação" />
+        @if (Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.CREATE)
+        {
+            <input class="btn btn-success" type="submit" value="Salvar avaliação" />
+        }
+        else if (Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.UPDATE)
+        {
+            <input class="btn btn-success" type="submit" value="Salvar alterações na avaliação" />
+        }
+        else if (Model.Operacao == CRUDAspNetCoreMVC.Enums.EnumCRUD.DELETE)
+        {
+            <input class="btn btn-danger" type="submit" value="Remover avaliação" />
+        }
     }
 </div>
