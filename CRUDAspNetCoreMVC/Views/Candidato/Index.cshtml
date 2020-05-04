@@ -3,6 +3,14 @@
     ViewData["Title"] = "Candidatos";
 }
 
+@using (Html.BeginForm("Index", "Candidato", FormMethod.Get))
+{
+    <div style="display:flex">
+        <input type="text" placeholder="Insira o filtro" name="Filtro" value="@ViewBag.Filtro" class="form-control largura-quarto" />
+        <input type="submit" value="Filtrar" class="btn btn-default" />
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>@Html.DisplayNameFor(Model => Model.First().CD_Candidato)</th>

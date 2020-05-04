@@ -13,16 +13,10 @@ namespace CRUDAspNetCoreMVC.Controllers
         }
 
         #region Listagem
-        public IActionResult Index()
-        {
-            var candidatos = this.contexto.Candidatos.ToList();
-            return View(candidatos);
-        }
-
-        [Route("Candidatos/{filtro}")]
         public IActionResult Index(string filtro)
         {
-            var candidatos = this.contexto.Candidatos.Where(x => x.CH_Nome.Contains(filtro)).ToList();
+            ViewBag.Filtro = filtro;
+            var candidatos = this.contexto.Candidatos.Where(x => filtro == null || x.CH_Nome.Contains(filtro)).ToList();
             return View(candidatos);
         }
         #endregion
